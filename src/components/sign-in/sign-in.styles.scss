@@ -1,0 +1,14 @@
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  .tile {
+    margin: 10px 0;
+    align-content: center;
+  }
+
+  .buttons {
+    position: relative;
+  }
+}

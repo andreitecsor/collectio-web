@@ -1,0 +1,30 @@
+@media screen and (max-width: 1082px) {
+  .auth-logo-container {
+    display: none;
+  }
+  .auth-form {
+    float: left;
+  }
+}
+
+.auth {
+  margin: 30px auto;
+  display: flex;
+
+  .auth-logo-container {
+    width: 60%;
+    margin-top: 150px;
+    align-items: center;
+    float: left;
+
+    .auth-logo {
+      width: 85%;
+      margin-left: 40px;
+    }
+  }
+
+  .auth-form {
+    float: right;
+    width: 30%;
+  }
+}

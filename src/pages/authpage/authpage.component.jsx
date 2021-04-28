@@ -2,6 +2,7 @@ import React from 'react';
 import './authpage.styles.scss';
 import SignIn from "../../components/sign-in/sign-in.component";
 import {ReactComponent as AuthLogo} from '../../assets/auth_logo.svg';
+import SignUp from "../../components/sign-up/sign-up.component";
 
 class AuthPage extends React.Component {
     constructor() {
@@ -22,7 +23,7 @@ class AuthPage extends React.Component {
                     {this.state.isLogin ?
                         <SignIn/>
                         :
-                        <div>Register</div>}
+                        <SignUp/>}
                 </div>
             </div>)
 

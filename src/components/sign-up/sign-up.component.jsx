@@ -30,7 +30,9 @@ class SignUp extends React.Component {
         return (
             <div className='sign-up'>
                 <h2>Sign up</h2>
-                <span>Already a member? Log in now</span>
+                <span>Already a member?
+                    <span className='switch-form' onClick={this.props.switchForm}>Log in now</span>
+                </span>
                 <form onSubmit={this.handleSubmit}>
                     <FormInput
                         type='text'

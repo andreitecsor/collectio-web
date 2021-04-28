@@ -28,7 +28,9 @@ class SignIn extends React.Component {
         return (
             <div className='sign-in'>
                 <h2>Sign in</h2>
-                <span>New to collectio? Join us now</span>
+                <span>New to collectio?
+                   <span className='switch-form' onClick={() =>this.props.switchForm()}>Join us now</span>
+                </span>
                 <form onSubmit={this.handleSubmit}>
                     <FormInput
                         name='email'

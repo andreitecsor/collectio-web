@@ -13,6 +13,12 @@ class AuthPage extends React.Component {
         }
     }
 
+    changeAuthForm = () => {
+        this.setState({
+            isLogin: !this.state.isLogin
+        })
+    }
+
     render() {
         return (
             <div className='auth'>
@@ -21,9 +27,9 @@ class AuthPage extends React.Component {
                 </div>
                 <div className='auth-form'>
                     {this.state.isLogin ?
-                        <SignIn/>
+                        <SignIn switchForm={this.changeAuthForm}/>
                         :
-                        <SignUp/>}
+                        <SignUp switchForm={this.changeAuthForm}/>}
                 </div>
             </div>)
 

@@ -3,6 +3,16 @@
   flex-direction: column;
   text-align: center;
 
+  .switch-form {
+    padding-left: 5px;
+    color: #4285f4;
+
+    &:hover {
+      text-decoration: underline;
+      color: #2763bb;
+    }
+  }
+
   .buttons {
     position: relative;
   }

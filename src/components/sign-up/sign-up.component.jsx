@@ -4,6 +4,8 @@ import React from 'react';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.components";
 import {auth} from "../../utils/firebase.utils";
+import axios from "axios";
+import {endpoint} from "../../utils/endpoint";
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -27,8 +29,11 @@ class SignUp extends React.Component {
         }
 
         try {
-            const {user} = await auth.createUserWithEmailAndPassword(email, password);
-            //TODO:Save user to neo4j db
+            await axios.post(endpoint("user"), {
+                displayName: displayName,
+                email: email
+            })
+            await auth.createUserWithEmailAndPassword(email, password);
             this.setState({
                 displayName: '',
                 email: '',

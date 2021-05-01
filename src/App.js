@@ -19,6 +19,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+            //TODO:Query to db -> return user
             this.setState({currentUser: user});
             if (user) {
                 console.log(user.uid);

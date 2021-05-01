@@ -3,6 +3,7 @@ import './sign-up.styles.scss';
 import React from 'react';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.components";
+import {auth} from "../../utils/firebase.utils";
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -16,9 +17,27 @@ class SignUp extends React.Component {
         }
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(this.state)
+        const {displayName, email, password, confirmPassword} = this.state;
+
+        if (password !== confirmPassword) {
+            alert("passwords don't match");
+            return;
+        }
+
+        try {
+            const {user} = await auth.createUserWithEmailAndPassword(email, password);
+            //TODO:Save user to neo4j db
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     handleChange = event => {

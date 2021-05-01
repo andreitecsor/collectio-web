@@ -52,7 +52,7 @@ class SignIn extends React.Component {
                             Sign in with Google
                         </CustomButton>
                     </div>
-                    <span>Forgot your password?</span>
+                    <span className='utility-text'>Forgot your password?</span>
                 </form>
             </div>
         )

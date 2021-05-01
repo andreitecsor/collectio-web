@@ -23,24 +23,8 @@ class App extends React.Component {
     componentDidMount() {
         this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
             this.setState({firebaseUser: user});
-            console.log(user)
             if (user) {
-                axios.get(endpoint("user") + user.email).then(response => {
-                    console.log(response)
-                    if (response.data === "") {
-                        axios.post(endpoint("user"), {
-                            displayName: user.displayName,
-                            email: user.email
-                        }).then(res =>
-                            this.setState({
-                                appUser: res.data
-                            }));
-                    } else {
-                        this.setState({
-                            appUser: response.data
-                        });
-                    }
-                })
+                this.synchroniseWithDatabase(user);
             } else {
                 this.setState({
                     appUser: null
@@ -67,6 +51,23 @@ class App extends React.Component {
         );
     }
 
+    synchroniseWithDatabase(user) {
+        axios.get(endpoint("user") + user.email).then(response => {
+            if (response.data === "") {
+                axios.post(endpoint("user"), {
+                    displayName: user.displayName,
+                    email: user.email
+                }).then(res =>
+                    this.setState({
+                        appUser: res.data
+                    }));
+            } else {
+                this.setState({
+                    appUser: response.data
+                });
+            }
+        })
+    }
 
 }
 

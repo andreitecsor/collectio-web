@@ -29,10 +29,7 @@ class SignUp extends React.Component {
         }
 
         try {
-            await axios.post(endpoint("user"), {
-                displayName: displayName,
-                email: email
-            })
+            await this.addUserToDatabase(displayName, email);
             await auth.createUserWithEmailAndPassword(email, password);
             this.setState({
                 displayName: '',
@@ -43,6 +40,13 @@ class SignUp extends React.Component {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async addUserToDatabase(displayName, email) {
+        await axios.post(endpoint("user"), {
+            displayName: displayName,
+            email: email
+        });
     }
 
     handleChange = event => {

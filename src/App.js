@@ -5,13 +5,16 @@ import './App.css';
 import HomePage from "./pages/homepage/homepage.component";
 import {auth} from "./utils/firebase.utils";
 import AuthPage from "./pages/authpage/authpage.component";
+import axios from "axios";
+import {endpoint} from "./utils/endpoint";
 
 class App extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            currentUser: null
+            firebaseUser: null,
+            appUser: null
         };
     }
 
@@ -19,12 +22,13 @@ class App extends React.Component {
 
     componentDidMount() {
         this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-            //TODO:Query to db -> return user
-            this.setState({currentUser: user});
+            this.setState({firebaseUser: user});
             if (user) {
-                console.log(user.uid);
-                console.log(user.displayName);
-                console.log(user.email);
+                this.synchroniseWithDatabase(user);
+            } else {
+                this.setState({
+                    appUser: null
+                })
             }
         });
     }
@@ -37,8 +41,8 @@ class App extends React.Component {
         return (
             <div>
                 <Switch>
-                    {this.state.currentUser ?
-                        <Route exact path='/' component={() => <HomePage user={this.state.currentUser}/>}/>
+                    {this.state.firebaseUser ?
+                        <Route exact path='/' component={() => <HomePage user={this.state.appUser}/>}/>
                         :
                         <Route exact path='/' component={AuthPage}/>
                     }
@@ -47,6 +51,23 @@ class App extends React.Component {
         );
     }
 
+    synchroniseWithDatabase(user) {
+        axios.get(endpoint("user") + user.email).then(response => {
+            if (response.data === "") {
+                axios.post(endpoint("user"), {
+                    displayName: user.displayName,
+                    email: user.email
+                }).then(res =>
+                    this.setState({
+                        appUser: res.data
+                    }));
+            } else {
+                this.setState({
+                    appUser: response.data
+                });
+            }
+        })
+    }
 
 }
 

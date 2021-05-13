@@ -1,34 +1,34 @@
-import React from "react";
-import {Route, Switch} from 'react-router-dom';
-
 import './App.css';
+import React from "react";
 import HomePage from "./pages/homepage/homepage.component";
-import {auth} from "./utils/firebase.utils";
 import AuthPage from "./pages/authpage/authpage.component";
+import {Route, Switch} from 'react-router-dom';
+import {auth} from "./utils/firebase.utils";
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from "./redux/user/user.selectors";
+import {setCurrentUser} from "./redux/user/user.actions";
 import axios from "axios";
-import {endpoint} from "./utils/endpoint";
 
 class App extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            firebaseUser: null,
-            appUser: null
-        };
-    }
 
     unsubscribeFromAuth = null;
 
     componentDidMount() {
-        this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-            this.setState({firebaseUser: user});
-            if (user) {
-                this.synchroniseWithDatabase(user);
+        const {setCurrentUser} = this.props;
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+                axios.post('http://localhost:8080/api/users',
+                    {
+                        uid: firebaseUser.uid,
+                        email: firebaseUser.email
+                    })
+                    .then(result => {
+                        console.log(result.data);
+                        setCurrentUser(result.data);
+                    })
             } else {
-                this.setState({
-                    appUser: null
-                })
+                setCurrentUser(firebaseUser);
             }
         });
     }
@@ -41,34 +41,31 @@ class App extends React.Component {
         return (
             <div>
                 <Switch>
-                    {this.state.firebaseUser ?
-                        <Route exact path='/' component={() => <HomePage user={this.state.appUser}/>}/>
-                        :
-                        <Route exact path='/' component={AuthPage}/>
-                    }
+                    <Route exact path='/'
+                           render={() =>
+                               this.props.currentUser
+                                   ? (<HomePage/>)
+                                   : (<AuthPage/>)
+                           }/>
+                    {/*<Route exact path='/challenges'*/}
+                    {/*       render={() =>*/}
+                    {/*           this.props.currentUser*/}
+                    {/*               ? (<Challenges/>)*/}
+                    {/*               : (<AuthPage/>)*/}
+                    {/*       }/>*/}
                 </Switch>
             </div>
         );
     }
-
-    synchroniseWithDatabase(user) {
-        axios.get(endpoint("user") + user.email).then(response => {
-            if (response.data === "") {
-                axios.post(endpoint("user"), {
-                    displayName: user.displayName,
-                    email: user.email
-                }).then(res =>
-                    this.setState({
-                        appUser: res.data
-                    }));
-            } else {
-                this.setState({
-                    appUser: response.data
-                });
-            }
-        })
-    }
-
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

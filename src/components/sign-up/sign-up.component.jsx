@@ -4,15 +4,12 @@ import React from 'react';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.components";
 import {auth} from "../../utils/firebase.utils";
-import axios from "axios";
-import {endpoint} from "../../utils/endpoint";
 
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            displayName: '',
             email: '',
             password: '',
             confirmPassword: ''
@@ -21,7 +18,7 @@ class SignUp extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const {displayName, email, password, confirmPassword} = this.state;
+        const {email, password, confirmPassword} = this.state;
 
         if (password !== confirmPassword) {
             alert("passwords don't match");
@@ -29,24 +26,16 @@ class SignUp extends React.Component {
         }
 
         try {
-            await this.addUserToDatabase(displayName, email);
             await auth.createUserWithEmailAndPassword(email, password);
             this.setState({
-                displayName: '',
                 email: '',
                 password: '',
                 confirmPassword: ''
             });
         } catch (error) {
+            alert("email already used");
             console.error(error);
         }
-    }
-
-    async addUserToDatabase(displayName, email) {
-        await axios.post(endpoint("user"), {
-            displayName: displayName,
-            email: email
-        });
     }
 
     handleChange = event => {
@@ -62,14 +51,6 @@ class SignUp extends React.Component {
                     <span className='switch-form' onClick={this.props.switchForm}>Log in now</span>
                 </span>
                 <form onSubmit={this.handleSubmit}>
-                    <FormInput
-                        type='text'
-                        name='displayName'
-                        value={this.state.displayName}
-                        onChange={this.handleChange}
-                        label="Display Name"
-                        required
-                    />
                     <FormInput
                         type='email'
                         name='email'

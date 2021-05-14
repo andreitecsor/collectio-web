@@ -4,14 +4,12 @@ import './homepage.styles.scss';
 import Header from "../../components/header/header.component";
 import CustomButton from "../../components/custom-button/custom-button.components";
 import {auth} from "../../utils/firebase.utils";
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUser} from "../../redux/user/user.selectors";
+import {connect} from "react-redux";
 
 
 class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(this.props);
-    }
-
     render() {
         return (
             <div className='homepage'>
@@ -22,5 +20,8 @@ class HomePage extends React.Component {
     }
 }
 
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+})
 
-export default HomePage;
+export default connect(mapStateToProps)(HomePage);

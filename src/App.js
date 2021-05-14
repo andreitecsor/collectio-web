@@ -11,6 +11,13 @@ import {setCurrentUser} from "./redux/user/user.actions";
 import axios from "axios";
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isServerAvailable: true
+        }
+    }
 
     unsubscribeFromAuth = null;
 
@@ -23,10 +30,16 @@ class App extends React.Component {
                         uid: firebaseUser.uid,
                         email: firebaseUser.email
                     })
-                    .then(result => {
-                        console.log(result.data);
-                        setCurrentUser(result.data);
+                    .then(response => {
+                        console.log(response.data);
+                        setCurrentUser(response.data);
                     })
+                    .catch(reason => {
+                        console.log(reason)
+                        this.setState({
+                            isServerAvailable: false
+                        })
+                    });
             } else {
                 setCurrentUser(firebaseUser);
             }
@@ -40,32 +53,37 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Switch>
-                    <Route exact path='/'
-                           render={() =>
-                               this.props.currentUser
-                                   ? (<HomePage/>)
-                                   : (<AuthPage/>)
-                           }/>
-                    {/*<Route exact path='/challenges'*/}
-                    {/*       render={() =>*/}
-                    {/*           this.props.currentUser*/}
-                    {/*               ? (<Challenges/>)*/}
-                    {/*               : (<AuthPage/>)*/}
-                    {/*       }/>*/}
-                </Switch>
+                {this.state.isServerAvailable ?
+                    (<Switch>
+                        <Route exact path='/'
+                               render={() =>
+                                   this.props.currentUser
+                                       ? (<HomePage/>)
+                                       : (<AuthPage/>)
+                               }/>
+                        {/*<Route exact path='/challenges'*/}
+                        {/*       render={() =>*/}
+                        {/*           this.props.currentUser*/}
+                        {/*               ? (<Challenges/>)*/}
+                        {/*               : (<AuthPage/>)*/}
+                        {/*       }/>*/}
+                    </Switch>) :
+                    <span>Server is down</span>
+                }
             </div>
         );
     }
 }
 
-const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
-});
+const
+    mapStateToProps = createStructuredSelector({
+        currentUser: selectCurrentUser
+    });
 
-const mapDispatchToProps = (dispatch) => ({
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
-});
+const
+    mapDispatchToProps = (dispatch) => ({
+        setCurrentUser: (user) => dispatch(setCurrentUser(user))
+    });
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './homepage.styles.scss';
-import Header from "../../components/header/header.component";
 import CustomButton from "../../components/custom-button/custom-button.components";
 import PopUp from "../../components/pop-up/pop-up.component";
 import {auth} from "../../utils/firebase.utils";
@@ -73,9 +72,18 @@ class HomePage extends React.Component {
                         <CustomButton type='submit'>Save details</CustomButton>
                     </form>
                 </PopUp>
-                <Header/>
+                <div className='content'>
+                    <div>
+                        PROFILE CARD
+                    </div>
+                    <div>
+                        NEWSFEED
+                    </div>
+                    <div>
+                        POPULAR_CHALLENGES
+                    </div>
+                </div>
                 <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
-                This is my homepage
             </div>)
     }
 }

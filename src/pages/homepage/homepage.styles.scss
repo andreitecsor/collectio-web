@@ -2,4 +2,10 @@
   .pop-up-description {
     text-align: center;
   }
+
+  .content{
+    display: flex;
+    justify-content: space-between;
+    padding: 120px 70px;
+  }
 }

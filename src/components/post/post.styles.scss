@@ -1,0 +1,26 @@
+.post {
+  width: 80%;
+  background-color: #d5d5d5;
+  border: 2px solid #acacac;
+  display: flex;
+  flex-direction: column;
+  //align-items: center;
+  padding: 15px;
+  //margin-bottom: 20px;
+  border-radius: 3px;
+
+  .message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .image {
+      align-self: center;
+    }
+  }
+
+  .date {
+    font-size: 15px;
+  }
+
+
+}

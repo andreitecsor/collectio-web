@@ -1,0 +1,12 @@
+.newsfeed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+
+
+  .connector {
+    margin-top: -6px;
+    color: #acacac;
+  }
+}

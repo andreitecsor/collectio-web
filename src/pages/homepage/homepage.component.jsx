@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import FormInput from "../../components/form-input/form-input.component";
 import {setCurrentUser} from "../../redux/user/user.actions";
 import axios from "axios";
+import Newsfeed from "../../components/newsfeed/newsfeed.component";
 
 
 class HomePage extends React.Component {
@@ -76,9 +77,7 @@ class HomePage extends React.Component {
                     <div>
                         PROFILE CARD
                     </div>
-                    <div>
-                        NEWSFEED
-                    </div>
+                        <Newsfeed/>
                     <div>
                         POPULAR_CHALLENGES
                     </div>

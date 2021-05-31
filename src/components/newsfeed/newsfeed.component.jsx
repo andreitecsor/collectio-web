@@ -1,10 +1,10 @@
 import './newsfeed.styles.scss';
 import React from "react";
-import Post from "../post/post.component";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import axios from "axios";
 import {createStructuredSelector} from "reselect";
 import {connect} from "react-redux";
+import Post from "../post/post.component";
 
 class Newsfeed extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class Newsfeed extends React.Component {
                 console.log(response);
                 if (response.data.length > 0) {
                     this.setState({
-                        posts: this.state.posts.push(response.data),
+                        posts: this.state.posts.concat(response.data),
                         page: this.state.page + 1
                     })
                 } else {
@@ -40,14 +40,20 @@ class Newsfeed extends React.Component {
     }
 
     render() {
+        const {posts} = this.state;
+        console.log(posts);
         return (
             <div className='newsfeed'>
                 <div className='title'>What's new</div>
                 <div className='connector'>|</div>
-                {}
-                {/*TODO:Foreach post data generate a post*/}
-                <Post/>
-                <div className='connector'>|</div>
+                {
+                    posts.map(post => (
+                        <div className='newsfeed'>
+                            <Post key={post.postId} post={post}/>
+                            <div className='connector'>|</div>
+                        </div>
+                    ))
+                }
                 {this.state.allPostsShown
                     ? <div className='title'>Nothing new here</div>
                     : <button onClick={() => this.getNewsfeedPosts()}>Show more</button>

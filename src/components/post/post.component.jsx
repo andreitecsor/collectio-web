@@ -1,5 +1,8 @@
 import React from "react";
 import './post.styles.scss';
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+TimeAgo.addDefaultLocale(en)
 
 class Post extends React.Component {
     constructor(props) {
@@ -7,15 +10,13 @@ class Post extends React.Component {
     }
 
     render() {
-        const {date} = this.props.post;
-        let completeDate = date.substring(0, 10);
-        completeDate += " ";
-        completeDate += date.substring(11, 16);
+        const timeAgo = new TimeAgo('en-US')
+        const actualDate = Date.parse(this.props.post.date);
         return (
             <div className='post'>
                 <div className='message'>
                     <span className='date'>
-                        {completeDate}
+                        {timeAgo.format(actualDate)}
                     </span>
                     {
                         this.selectPost(this.props.post)

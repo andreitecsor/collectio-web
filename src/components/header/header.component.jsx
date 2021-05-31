@@ -3,10 +3,13 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import FormInput from "../form-input/form-input.component";
 import {ReactComponent as Logo} from "../../assets/logo.svg";
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUser} from "../../redux/user/user.selectors";
+import {connect} from "react-redux";
 
 class Header extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             search: ""
@@ -19,6 +22,7 @@ class Header extends React.Component {
     }
 
     render() {
+        const {username, displayName} = this.props.currentUser;
         return (
             <div className='header'>
                 <Link to='/'>
@@ -39,11 +43,17 @@ class Header extends React.Component {
                         CHALLENGES
                     </Link>
                     <Link className="option" to='/'>
-                        PROFILE
+                        {displayName.toUpperCase()}
                     </Link>
                 </div>
             </div>
         )
     }
 }
-export default Header;
+
+const
+    mapStateToProps = createStructuredSelector({
+        currentUser: selectCurrentUser
+    });
+
+export default connect(mapStateToProps)(Header);

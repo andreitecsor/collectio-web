@@ -55,7 +55,7 @@ class Newsfeed extends React.Component {
                     ))
                 }
                 {this.state.allPostsShown
-                    ? <div className='title'>Nothing new here</div>
+                    ? <div className='title'>That's all for now</div>
                     : <button onClick={() => this.getNewsfeedPosts()}>Show more</button>
                 }
             </div>)

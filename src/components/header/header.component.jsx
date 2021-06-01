@@ -22,7 +22,7 @@ class Header extends React.Component {
     }
 
     render() {
-        const {username, displayName} = this.props.currentUser;
+        const {displayName} = this.props.currentUser;
         return (
             <div className='header'>
                 <Link to='/'>

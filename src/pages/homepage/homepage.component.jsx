@@ -11,6 +11,8 @@ import FormInput from "../../components/form-input/form-input.component";
 import {setCurrentUser} from "../../redux/user/user.actions";
 import axios from "axios";
 import Newsfeed from "../../components/newsfeed/newsfeed.component";
+import ProfileCard from "../../components/profile-card/profile-card.component";
+import ChallengeRank from "../../components/challenge-rank/challenge-rank.component";
 
 
 class HomePage extends React.Component {
@@ -50,40 +52,40 @@ class HomePage extends React.Component {
     render() {
         return (
             <div className='homepage'>
-                <PopUp trigger={!this.props.currentUser.username}>
-                    <div className='pop-up-description'>
-                        <h2>Welcome</h2>
-                        <span>You need an unique username and a display name</span>
-                    </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <FormInput
-                            name='username'
-                            type='text'
-                            value={this.state.username}
-                            handleChange={this.handleChange}
-                            label='Username'
-                            required/>
-                        <FormInput
-                            name='displayName'
-                            type='text'
-                            value={this.state.displayName}
-                            handleChange={this.handleChange}
-                            label='Display Name'
-                            required/>
-                        <CustomButton type='submit'>Save details</CustomButton>
-                    </form>
-                </PopUp>
+                {this.getFirstTimePopUp()}
                 <div className='content'>
-                    <div>
-                        PROFILE CARD
-                    </div>
-                        <Newsfeed/>
-                    <div>
-                        POPULAR_CHALLENGES
-                    </div>
+                    <ProfileCard/>
+                    <Newsfeed/>
+                   <ChallengeRank/>
                 </div>
                 <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
             </div>)
+    }
+
+    getFirstTimePopUp() {
+        return <PopUp trigger={!this.props.currentUser.username}>
+            <div className='pop-up-description'>
+                <h2>Welcome</h2>
+                <span>You need an unique username and a display name</span>
+            </div>
+            <form onSubmit={this.handleSubmit}>
+                <FormInput
+                    name='username'
+                    type='text'
+                    value={this.state.username}
+                    handleChange={this.handleChange}
+                    label='Username'
+                    required/>
+                <FormInput
+                    name='displayName'
+                    type='text'
+                    value={this.state.displayName}
+                    handleChange={this.handleChange}
+                    label='Display Name'
+                    required/>
+                <CustomButton type='submit'>Save details</CustomButton>
+            </form>
+        </PopUp>;
     }
 }
 

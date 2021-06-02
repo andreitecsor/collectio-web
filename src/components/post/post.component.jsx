@@ -42,16 +42,18 @@ class Post extends React.Component {
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
                     <span> {author.displayName}</span>
-                    <span> joined a new challenge </span>
+                    <span> joined the </span>
                     <span>{challenge.title}</span>
+                    <span> challenge </span>
                 </div>)
             case 'AWARD':
                 return (<div className='message'>
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
                     <span> {author.displayName}</span>
-                    <span> completed {stage.weeksCondition} {stage.weeksCondition === 1? "week" : "weeks" } in </span>
+                    <span> completed {stage.weeksCondition} {stage.weeksCondition === 1? "week" : "weeks" } in the </span>
                     <span>{challenge.title}</span>
+                    <span> challenge </span>
                 </div>)
             default:
                 return <span>Error Loading Message</span>

@@ -42,9 +42,16 @@ class Header extends React.Component {
                     <Link className="option" to='/'>
                         CHALLENGES
                     </Link>
-                    <Link className="option" to='/'>
-                        {displayName.toUpperCase()}
-                    </Link>
+                    {
+                        displayName == null
+                            ? <Link className="option" to='/'>
+                                PROFILE
+                            </Link>
+                            :
+                            <Link className="option" to='/'>
+                                {displayName.toUpperCase()}
+                            </Link>
+                    }
                 </div>
             </div>
         )

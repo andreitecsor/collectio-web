@@ -50,7 +50,7 @@ class Post extends React.Component {
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
                     <span> {author.displayName}</span>
-                    <span> completed {stage.weeksCondition} in </span>
+                    <span> completed {stage.weeksCondition} {stage.weeksCondition === 1? "week" : "weeks" } in </span>
                     <span>{challenge.title}</span>
                 </div>)
             default:
@@ -60,6 +60,7 @@ class Post extends React.Component {
 
     selectIcon(post) {
         const {challenge, stage} = post;
+        console.log(challenge)
         switch (post.postType) {
             case 'FOLLOW':
                 return (

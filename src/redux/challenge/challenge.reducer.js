@@ -7,12 +7,12 @@ const INITIAL_STATE = {
 
 const challengeReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ChallengeActionTypes.GET_ALL_CHALLENGES:
+        case ChallengeActionTypes.SET_ALL_CHALLENGES:
             return {
                 ...state,
                 allChallenges: action.payload
             }
-        case ChallengeActionTypes.GET_ACTIVE_CHALLENGES:
+        case ChallengeActionTypes.SET_ACTIVE_CHALLENGES:
             return {
                 ...state,
                 activeChallenges: action.payload

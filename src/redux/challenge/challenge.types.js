@@ -1,0 +1,4 @@
+export const ChallengeActionTypes = {
+    GET_ALL_CHALLENGES: 'GET_CHALLENGES',
+    GET_ACTIVE_CHALLENGES: 'GET_ACTIVE_CHALLENGES'
+}

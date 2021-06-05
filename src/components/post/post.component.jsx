@@ -24,7 +24,6 @@ class Post extends React.Component {
 
     selectPost(post) {
         const {author, following, challenge, stage} = post;
-        console.log(post)
         switch (post.postType) {
             case 'FOLLOW':
                 return (
@@ -62,7 +61,6 @@ class Post extends React.Component {
 
     selectIcon(post) {
         const {challenge, stage} = post;
-        console.log(challenge)
         switch (post.postType) {
             case 'FOLLOW':
                 return (

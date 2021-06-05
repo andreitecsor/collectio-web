@@ -13,7 +13,7 @@ import Header from "./components/header/header.component";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ChallengePage from "./pages/challenges-page/challenge-page.component";
-import {setAllChallenges} from "./redux/challenge/challenge.actions";
+import {setAllActiveChallenges, setAllChallenges} from "./redux/challenge/challenge.actions";
 
 class App extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class App extends React.Component {
     unsubscribeFromAuth = null;
 
     componentDidMount() {
-        const {setCurrentUser, setAllChallenges} = this.props;
+        const {setCurrentUser, setAllChallenges,setAllActiveChallenges} = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(firebaseUser => {
             if (firebaseUser) {
                 axios.post('http://localhost:8080/api/users',
@@ -38,6 +38,7 @@ class App extends React.Component {
                     .then(response => {
                         console.log(response.data);
                         setCurrentUser(response.data);
+                        this.setActiveChallenges(response, setAllActiveChallenges);
                     })
                     .catch(reason => {
                         console.log(reason)
@@ -52,7 +53,18 @@ class App extends React.Component {
             axios.get('http://localhost:8080/api/challenges/all')
                 .then(response => setAllChallenges(response.data))
                 .catch(reason => console.log(reason))
+
+
         });
+    }
+
+    setActiveChallenges(response, setAllActiveChallenges) {
+        axios.get(`http://localhost:8080/api/joined/actives/${response.data.uid}`)
+            .then(response => {
+                setAllActiveChallenges(response.data)
+                console.log(response.data)
+            })
+            .catch(reason => console.log(reason))
     }
 
     componentWillUnmount() {
@@ -97,7 +109,8 @@ const
 const
     mapDispatchToProps = (dispatch) => ({
         setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-        setAllChallenges: (challenges) => dispatch(setAllChallenges(challenges))
+        setAllChallenges: (challenges) => dispatch(setAllChallenges(challenges)),
+        setAllActiveChallenges: (challenges) => dispatch(setAllActiveChallenges(challenges))
     });
 
 

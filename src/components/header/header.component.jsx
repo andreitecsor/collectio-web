@@ -39,7 +39,7 @@ class Header extends React.Component {
                             label='Search'
                         />
                     </div>
-                    <Link className="option" to='/'>
+                    <Link className="option" to='/challenges'>
                         CHALLENGES
                     </Link>
                     {

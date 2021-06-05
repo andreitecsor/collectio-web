@@ -39,18 +39,6 @@ class ChallengeRank extends React.Component {
                         </div>
                     )
                 }
-                {/*TODO:Delete this*/}
-                {
-                    challenges.map(challenge =>
-                        <div className='challenge'>
-                            <hr/>
-                            <img src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
-                                 alt={`${challenge.title} logo`}/>
-                            <div>{challenge.title}</div>
-
-                        </div>
-                    )
-                }
             </div>
         )
     }

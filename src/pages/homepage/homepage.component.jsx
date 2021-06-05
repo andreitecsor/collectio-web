@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './homepage.styles.scss';
-import Header from "../../components/header/header.component";
 import CustomButton from "../../components/custom-button/custom-button.components";
 import PopUp from "../../components/pop-up/pop-up.component";
 import {auth} from "../../utils/firebase.utils";
@@ -11,6 +10,9 @@ import {connect} from "react-redux";
 import FormInput from "../../components/form-input/form-input.component";
 import {setCurrentUser} from "../../redux/user/user.actions";
 import axios from "axios";
+import Newsfeed from "../../components/newsfeed/newsfeed.component";
+import ProfileCard from "../../components/profile-card/profile-card.component";
+import ChallengeRank from "../../components/challenge-rank/challenge-rank.component";
 
 
 class HomePage extends React.Component {
@@ -50,33 +52,40 @@ class HomePage extends React.Component {
     render() {
         return (
             <div className='homepage'>
-                <PopUp trigger={!this.props.currentUser.username}>
-                    <div className='pop-up-description'>
-                        <h2>Welcome</h2>
-                        <span>You need an unique username and a display name</span>
-                    </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <FormInput
-                            name='username'
-                            type='text'
-                            value={this.state.username}
-                            handleChange={this.handleChange}
-                            label='Username'
-                            required/>
-                        <FormInput
-                            name='displayName'
-                            type='text'
-                            value={this.state.displayName}
-                            handleChange={this.handleChange}
-                            label='Display Name'
-                            required/>
-                        <CustomButton type='submit'>Save details</CustomButton>
-                    </form>
-                </PopUp>
-                <Header/>
+                {this.getFirstTimePopUp()}
+                <div className='content'>
+                    <ProfileCard/>
+                    <Newsfeed/>
+                   <ChallengeRank/>
+                </div>
                 <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
-                This is my homepage
             </div>)
+    }
+
+    getFirstTimePopUp() {
+        return <PopUp trigger={!this.props.currentUser.username}>
+            <div className='pop-up-description'>
+                <h2>Welcome</h2>
+                <span>You need an unique username and a display name</span>
+            </div>
+            <form onSubmit={this.handleSubmit}>
+                <FormInput
+                    name='username'
+                    type='text'
+                    value={this.state.username}
+                    handleChange={this.handleChange}
+                    label='Username'
+                    required/>
+                <FormInput
+                    name='displayName'
+                    type='text'
+                    value={this.state.displayName}
+                    handleChange={this.handleChange}
+                    label='Display Name'
+                    required/>
+                <CustomButton type='submit'>Save details</CustomButton>
+            </form>
+        </PopUp>;
     }
 }
 

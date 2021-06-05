@@ -9,11 +9,14 @@ import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from "./redux/user/user.selectors";
 import {setCurrentUser} from "./redux/user/user.actions";
 import axios from "axios";
+import Header from "./components/header/header.component";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-
+        TimeAgo.addDefaultLocale(en);
         this.state = {
             isServerAvailable: true
         }
@@ -53,6 +56,11 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                {
+                    this.props.currentUser
+                        ? <Header/>
+                        : null
+                }
                 {this.state.isServerAvailable ?
                     (<Switch>
                         <Route exact path='/'

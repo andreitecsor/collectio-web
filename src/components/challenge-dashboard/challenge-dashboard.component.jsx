@@ -1,11 +1,29 @@
 import './challenge-dashboard.styles.scss';
 import React from 'react';
-import {createStructuredSelector} from "reselect";
-import {connect} from "react-redux";
-import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 import ActiveChallenge from "../active-challenge/active-challenge.component";
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUser} from "../../redux/user/user.selectors";
+import {connect} from "react-redux";
+import axios from "axios";
 
 class ChallengeDashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeChallenges: []
+        }
+        this.getActiveChallenges();
+    }
+
+    getActiveChallenges = () => {
+        console.log("revin aici");
+        axios.get(`http://localhost:8080/api/joined/actives/${this.props.currentUser.uid}`)
+            .then(response => this.setState({
+                activeChallenges: response.data
+            }))
+            .catch(reason => console.log(reason));
+    }
+
     render() {
         return (
             <div className='challenge-dashboard'>
@@ -33,8 +51,13 @@ class ChallengeDashboard extends React.Component {
                     </div>
                 </div>
                 {
-                    this.props.activeChallenges.map(activeChallenge =>
-                        <ActiveChallenge key={activeChallenge.id} activeChallenge={activeChallenge}/>)
+                    this.state.activeChallenges.length === 0
+                        ? <span>You haven't joined any challenge. Scroll down to check some.</span>
+                        : this.state.activeChallenges.map(activeChallenge =>
+                            <ActiveChallenge
+                                key={activeChallenge.id}
+                                activeChallenge={activeChallenge}
+                                update={this.getActiveChallenges}/>)
                 }
                 <div className='title'>
                     <span>All Challenges:</span>
@@ -45,7 +68,8 @@ class ChallengeDashboard extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-    activeChallenges: selectAllActiveChallenges
+    currentUser: selectCurrentUser,
 });
+
 
 export default connect(mapStateToProps)(ChallengeDashboard);

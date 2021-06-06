@@ -17,7 +17,7 @@ class ChallengeDashboard extends React.Component {
                         <span>Challenge</span>
                     </div>
                     <div className='header-block'>
-                        <span>Times tried</span>
+                        <span>Last check</span>
                     </div>
                     <div className='header-block'>
                         <span>Best Record</span>

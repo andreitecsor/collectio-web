@@ -1,30 +1,4 @@
 .challenge-page {
   padding: 120px 70px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .active-challenges-header {
-    width: 100%;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid darkgrey;
-
-    .header-block {
-      text-transform: capitalize;
-      width: 23%;
-
-      &:last-child {
-        width: 8%;
-      }
-    }
-  }
-
-  .title {
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-size: 36px;
-  }
+  background-color: #f6f6f6;
 }

@@ -3,12 +3,9 @@ import './profile-card.styles.scss';
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {connect} from "react-redux";
+import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 
 class ProfileCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {displayName, username} = this.props.currentUser;
         return (
@@ -17,7 +14,7 @@ class ProfileCard extends React.Component {
                      alt='Profile avatar'/>
                 <div>{displayName}</div>
                 <hr/>
-                <div>Active Challenges : 0</div>
+                <div>Active Challenges : {this.props.activeChallenges.length}</div>
                 <hr/>
                 <div>People influenced : 0</div>
             </div>
@@ -25,11 +22,11 @@ class ProfileCard extends React.Component {
     }
 }
 
-const
-    mapStateToProps = createStructuredSelector({
-            currentUser: selectCurrentUser
-        }
-    );
+const mapStateToProps = createStructuredSelector({
+        currentUser: selectCurrentUser,
+        activeChallenges: selectAllActiveChallenges
+    }
+);
 
 
 export default connect(mapStateToProps)(ProfileCard);

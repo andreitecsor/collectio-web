@@ -16,7 +16,6 @@ class ChallengeDashboard extends React.Component {
     }
 
     getActiveChallenges = () => {
-        console.log("revin aici");
         axios.get(`http://localhost:8080/api/joined/actives/${this.props.currentUser.uid}`)
             .then(response => this.setState({
                 activeChallenges: response.data

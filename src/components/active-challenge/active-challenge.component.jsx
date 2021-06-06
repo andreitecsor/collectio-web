@@ -5,22 +5,23 @@ import axios from "axios";
 
 class ActiveChallenge extends React.Component {
     render() {
-        const startDate = Date.parse(this.props.activeChallenge.startedAt);
-        const lastCheckDate = Date.parse(this.props.activeChallenge.lastChecked);
+        const{startedAt,lastChecked,challenge,bestRecord} = this.props.activeChallenge;
+        const startDate = Date.parse(startedAt);
+        const lastCheckDate = Date.parse(lastChecked);
         let currentWeek = weeksBetween(startDate, lastCheckDate);
         return (
             <div className='active-challenge'>
                 <div className='logo-container'>
                     <img
-                        src={require(`../../assets/challenges/${this.props.activeChallenge.challenge.logoUrl}`).default}
-                        alt={`${this.props.activeChallenge.challenge.title} logo`}/>
-                    <div>{this.props.activeChallenge.challenge.title}</div>
+                        src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
+                        alt={`${challenge.title} logo`}/>
+                    <div>{challenge.title}</div>
                 </div>
                 <span className='row-item'>
-                    {this.props.activeChallenge.lastChecked}
+                    {lastChecked}
                 </span>
                 <span className='row-item'>
-                    {this.props.activeChallenge.bestRecord}
+                    {bestRecord}
                 </span>
                 <span className='row-item'>
                     {currentWeek}

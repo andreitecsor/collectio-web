@@ -2,7 +2,6 @@ import './active-challenge.styles.scss';
 import React from "react";
 
 const ActiveChallenge = ({activeChallenge}) => {
-    console.log(activeChallenge)
     const {startedAt, lastChecked, bestRecord, timesTried, challenge} = activeChallenge;
     const startDate = Date.parse(startedAt);
     const lastCheckDate = Date.parse(lastChecked);
@@ -15,7 +14,7 @@ const ActiveChallenge = ({activeChallenge}) => {
                 <div>{challenge.title}</div>
             </div>
             <span className='row-item'>
-                {timesTried}
+                {lastChecked}
             </span>
             <span className='row-item'>
                 {bestRecord}
@@ -24,7 +23,7 @@ const ActiveChallenge = ({activeChallenge}) => {
                 {currentWeek}
             </span>
             <div className='check-challenge'>&#10004;</div>
-            <div className='end-challenge'>&#10005;</div>
+            <div className='end-challenge'>&#10006;</div>
         </div>
     )
 }

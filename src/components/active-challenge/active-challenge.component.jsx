@@ -2,10 +2,11 @@ import './active-challenge.styles.scss';
 import React from "react";
 import weeksBetween from "../../utils/functions.utils";
 import axios from "axios";
+import swal from 'sweetalert';
 
 class ActiveChallenge extends React.Component {
     render() {
-        const{startedAt,lastChecked,challenge,bestRecord} = this.props.activeChallenge;
+        const {startedAt, lastChecked, challenge, bestRecord} = this.props.activeChallenge;
         const startDate = Date.parse(startedAt);
         const lastCheckDate = Date.parse(lastChecked);
         let currentWeek = weeksBetween(startDate, lastCheckDate);
@@ -26,7 +27,7 @@ class ActiveChallenge extends React.Component {
                 <span className='row-item'>
                     {currentWeek}
                 </span>
-                <div className='check-challenge'onClick={this.checkChallenge}>&#10004;</div>
+                <div className='check-challenge' onClick={this.checkChallenge}>&#10004;</div>
                 <div className='end-challenge' onClick={this.endChallenge}>&#10006;</div>
             </div>)
     }
@@ -35,7 +36,12 @@ class ActiveChallenge extends React.Component {
         const {user, challenge} = this.props.activeChallenge;
         axios.put(`http://localhost:8080/api/joined/check/${user.uid}->${challenge.id}`)
             .then(() => this.props.update())
-            .catch(reason => alert("You cannot check your challenge yet. Wait four days after last check."))
+            .catch(reason => swal({
+                title: "Invalid check time",
+                text: "You cannot check your challenge yet. Wait four days after last check.",
+                icon: "warning",
+                button: "Continue",
+            }))
     }
 
     endChallenge = () => {

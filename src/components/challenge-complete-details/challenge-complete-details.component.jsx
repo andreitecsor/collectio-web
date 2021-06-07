@@ -18,6 +18,7 @@ class ChallengeCompleteDetails extends React.Component {
                 <p> {challenge.description}</p>
                 <h2>Stages:</h2>
                 <CustomButton>Join now</CustomButton>
+                {/*    TODO: Solve stage*/}
             </div>
         )
     }

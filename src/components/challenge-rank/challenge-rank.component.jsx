@@ -35,13 +35,13 @@ class ChallengeRank extends React.Component {
                             <img src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
                                  alt={`${challenge.title} logo`}/>
                             <div>{challenge.title}</div>
-
                         </div>
                     )
                 }
             </div>
         )
     }
+
 }
 
 export default ChallengeRank;

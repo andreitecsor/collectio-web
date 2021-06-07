@@ -26,9 +26,6 @@ class ChallengeDashboard extends React.Component {
     render() {
         return (
             <div className='challenge-dashboard'>
-                <div className='title'>
-                    <span>Active Challenges:</span>
-                </div>
                 <div className='active-challenges-header'>
                     <div className='header-block'>
                         <span>Challenge</span>
@@ -58,9 +55,6 @@ class ChallengeDashboard extends React.Component {
                                 activeChallenge={activeChallenge}
                                 update={this.getActiveChallenges}/>)
                 }
-                <div className='title'>
-                    <span>All Challenges:</span>
-                </div>
             </div>
         )
     }

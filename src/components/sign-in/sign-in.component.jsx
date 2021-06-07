@@ -4,6 +4,7 @@ import React from 'react';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.components";
 import {auth, SignInWithGoogle} from "../../utils/firebase.utils";
+import swal from 'sweetalert';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -22,7 +23,12 @@ class SignIn extends React.Component {
             await auth.signInWithEmailAndPassword(email, password);
             this.setState({email: '', password: ''});
         } catch (err) {
-            alert("Invalid email or password");
+            swal({
+                title: "Invalid email or password",
+                text: "The email or password you have entered is incorrect or does not exists",
+                icon: "error",
+                button: "Try again",
+            });
             console.log(err);
         }
     }
@@ -37,7 +43,7 @@ class SignIn extends React.Component {
             <div className='sign-in'>
                 <h2>Sign in</h2>
                 <span>New to collectio?
-                   <span className='switch-form' onClick={() =>this.props.switchForm()}>Join us now</span>
+                   <span className='switch-form' onClick={() => this.props.switchForm()}>Join us now</span>
                 </span>
                 <form onSubmit={this.handleSubmit}>
                     <FormInput

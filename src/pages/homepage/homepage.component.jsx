@@ -13,6 +13,7 @@ import axios from "axios";
 import Newsfeed from "../../components/newsfeed/newsfeed.component";
 import ProfileCard from "../../components/profile-card/profile-card.component";
 import ChallengeRank from "../../components/challenge-rank/challenge-rank.component";
+import swal from "sweetalert";
 
 
 class HomePage extends React.Component {
@@ -40,7 +41,12 @@ class HomePage extends React.Component {
             })
             .catch(reason => {
                 console.warn(reason);
-                alert("Username taken");
+                swal({
+                    title: "Username taken",
+                    text: "The username must be an unique identifier",
+                    icon: "error",
+                    button: "Try again",
+                });
             })
     }
 

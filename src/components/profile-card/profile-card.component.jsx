@@ -38,6 +38,8 @@ class ProfileCard extends React.Component {
                 <hr/>
                 <div>Active Challenges : {this.state.activeChallenges}</div>
                 <hr/>
+                <div>Challenges started because of you : {this.state.peopleInfluenced}</div>
+                <hr/>
                 <div>People influenced : {this.state.peopleInfluenced}</div>
             </div>
         )

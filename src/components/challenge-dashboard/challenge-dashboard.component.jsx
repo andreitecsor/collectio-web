@@ -5,25 +5,30 @@ import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {connect} from "react-redux";
 import axios from "axios";
+import {setAllActiveChallenges} from "../../redux/challenge/challenge.actions";
+import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 
 class ChallengeDashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            activeChallenges: []
-        }
-        this.getActiveChallenges();
     }
 
     getActiveChallenges = () => {
+        const {setAllActiveChallenges} = this.props;
         axios.get(`http://localhost:8080/api/joined/actives/${this.props.currentUser.uid}`)
-            .then(response => this.setState({
-                activeChallenges: response.data
-            }))
+            .then(response => {
+                setAllActiveChallenges(response.data)
+            })
             .catch(reason => console.log(reason));
     }
 
+    componentDidMount() {
+        this.getActiveChallenges();
+
+    }
+
     render() {
+        const {activeChallenges} = this.props;
         return (
             <div className='challenge-dashboard'>
                 <div className='active-challenges-header'>
@@ -47,9 +52,9 @@ class ChallengeDashboard extends React.Component {
                     </div>
                 </div>
                 {
-                    this.state.activeChallenges.length === 0
+                    activeChallenges.length === 0
                         ? <span>You haven't joined any challenge. Scroll down to check some.</span>
-                        : this.state.activeChallenges.map(activeChallenge =>
+                        : activeChallenges.map(activeChallenge =>
                             <ActiveChallenge
                                 key={activeChallenge.id}
                                 activeChallenge={activeChallenge}
@@ -62,7 +67,12 @@ class ChallengeDashboard extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
+    activeChallenges: selectAllActiveChallenges
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setAllActiveChallenges: (challenges) => dispatch(setAllActiveChallenges(challenges)),
 });
 
 
-export default connect(mapStateToProps)(ChallengeDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeDashboard);

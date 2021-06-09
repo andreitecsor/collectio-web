@@ -29,7 +29,7 @@ class ChallengePage extends React.Component {
                 <ChallengeList activatePopup={this.activatePopup}/>
                 <PopUp trigger={this.state.show_popup} close={this.deactivatePopup}>
                     {this.state.challenge
-                        ? <ChallengeCompleteDetails challenge={this.state.challenge}/>
+                        ? <ChallengeCompleteDetails challenge={this.state.challenge} deactivatePopup={this.deactivatePopup}/>
                         : ""}
                 </PopUp>
             </div>

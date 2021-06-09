@@ -1,3 +1,4 @@
 export const ChallengeActionTypes = {
     SET_ALL_CHALLENGES: 'SET_ALL_CHALLENGES',
+    SET_ALL_ACTIVE_CHALLENGES: 'SET_ALL_ACTIVE_CHALLENGES',
 }

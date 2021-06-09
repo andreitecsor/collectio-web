@@ -42,6 +42,29 @@ class ChallengeCompleteDetails extends React.Component {
             )
     }
 
+    joinChallengeWithInfluencer(challenge) {
+        axios.put(`http://localhost:8080/api/joined/${this.props.currentUser.uid}->${challenge.id}/influencedBy=${this.props.influencerId}`)
+            .then(response => {
+                    swal({
+                        title: "Challenge joined!",
+                        text: `You joined ${challenge.title} challenge`,
+                        icon: "success",
+                        button: "Continue"
+                    });
+                    this.getActiveChallenges();
+                }
+            )
+            .catch(reason => {
+                    console.log(reason);
+                    swal({
+                        title: "You are already in this challenge",
+                        icon: "error",
+                        button: "Continue"
+                    })
+                }
+            )
+    }
+
     setStage(stages) {
         let stagesElements = [];
         stagesElements.push(<StageDetails stage={stages[0]} prevWeeksCondition={0}/>);
@@ -53,7 +76,7 @@ class ChallengeCompleteDetails extends React.Component {
     }
 
     render() {
-        const {challenge} = this.props;
+        const {challenge, influencerId} = this.props;
         const {stages} = challenge;
         return (
             <div className='challenge-complete-details'>
@@ -63,7 +86,13 @@ class ChallengeCompleteDetails extends React.Component {
                     this.setStage(stages)
                 }
                 <div className='button'>
-                    <CustomButton onClick={() => this.joinChallenge(challenge)}>Join now</CustomButton>
+                    {
+                        influencerId
+                            ? <CustomButton onClick={() => this.joinChallengeWithInfluencer(challenge)}>Join
+                                now</CustomButton>
+                            : <CustomButton onClick={() => this.joinChallenge(challenge)}>Join now</CustomButton>
+
+                    }
                 </div>
             </div>
         )

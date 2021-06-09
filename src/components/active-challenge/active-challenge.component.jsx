@@ -3,16 +3,20 @@ import React from "react";
 import weeksBetween from "../../utils/functions.utils";
 import axios from "axios";
 import swal from 'sweetalert';
+import {createStructuredSelector} from "reselect";
+import {selectAllChallenges} from "../../redux/challenge/challenge.selectors";
+import {connect} from "react-redux";
 
 class ActiveChallenge extends React.Component {
     render() {
+        const {allChallenges} = this.props;
         const {startedAt, lastChecked, challenge, bestRecord} = this.props.activeChallenge;
-        const startDate = Date.parse(startedAt);
-        const lastCheckDate = Date.parse(lastChecked);
-        let currentWeek = weeksBetween(startDate, lastCheckDate);
+        let currentWeek = weeksBetween(startedAt, lastChecked);
+        const challengeWithStages = allChallenges.find(challengeWithStages => challengeWithStages.id === challenge.id);
+        console.log(challengeWithStages);
         return (
             <div className='active-challenge'>
-                <div className='logo-container'>
+                <div className='logo-container' onClick={() => this.props.activatePopup(challengeWithStages)}>
                     <img
                         src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
                         alt={`${challenge.title} logo`}/>
@@ -69,5 +73,9 @@ class ActiveChallenge extends React.Component {
     }
 }
 
+const mapStateToProps = createStructuredSelector({
+    allChallenges: selectAllChallenges
+});
 
-export default ActiveChallenge;
+
+export default connect(mapStateToProps)(ActiveChallenge);

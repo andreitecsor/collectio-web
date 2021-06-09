@@ -1,0 +1,31 @@
+.active-challenge {
+  width: 100%;
+  display: flex;
+  min-height: 100px;
+  border-bottom: 1px solid darkgrey;
+  padding: 15px 0;
+  font-size: 30px;
+  align-items: center;
+
+  .logo-container {
+    width: 25%;
+    padding-right: 15px;
+    cursor: pointer;
+
+  }
+
+  .row-item {
+    width: 25%;
+  }
+
+  .check-challenge {
+  width: 25%;
+  cursor: pointer;
+  }
+
+  .end-challenge {
+  width: 5.5%;
+  cursor: pointer;
+  }
+}
+

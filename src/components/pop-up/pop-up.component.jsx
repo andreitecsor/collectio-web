@@ -6,7 +6,7 @@ const PopUp = (props) => {
         ? (
             <div className='pop-up'>
                 <div className='content'>
-                    <span className='dismiss' onClick={() => props.close ? console.log("functie de inchis") :
+                    <span className='dismiss' onClick={() => props.close ? props.close() :
                         undefined}>&#10005;</span>
                     {props.children}
                 </div>

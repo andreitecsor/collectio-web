@@ -13,6 +13,8 @@ import axios from "axios";
 import Newsfeed from "../../components/newsfeed/newsfeed.component";
 import ProfileCard from "../../components/profile-card/profile-card.component";
 import ChallengeRank from "../../components/challenge-rank/challenge-rank.component";
+import swal from "sweetalert";
+import ChallengeCompleteDetails from "../../components/challenge-complete-details/challenge-complete-details.component";
 
 
 class HomePage extends React.Component {
@@ -23,7 +25,10 @@ class HomePage extends React.Component {
 
         this.state = {
             displayName: displayName ? displayName : '',
-            username: username ? username : ''
+            username: username ? username : '',
+            show_popup: false,
+            challenge: null,
+            influencerId : null
         }
     }
 
@@ -40,7 +45,12 @@ class HomePage extends React.Component {
             })
             .catch(reason => {
                 console.warn(reason);
-                alert("Username taken");
+                swal({
+                    title: "Username taken",
+                    text: "The username must be an unique identifier",
+                    icon: "error",
+                    button: "Try again",
+                });
             })
     }
 
@@ -53,10 +63,11 @@ class HomePage extends React.Component {
         return (
             <div className='homepage'>
                 {this.getFirstTimePopUp()}
+                {this.getChallengePopup()}
                 <div className='content'>
                     <ProfileCard/>
-                    <Newsfeed/>
-                   <ChallengeRank/>
+                    <Newsfeed activatePopup={this.activatePopup}/>
+                    <ChallengeRank activatePopup={this.activatePopup}/>
                 </div>
                 <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
             </div>)
@@ -87,16 +98,42 @@ class HomePage extends React.Component {
             </form>
         </PopUp>;
     }
+
+    getChallengePopup() {
+        return <PopUp trigger={this.state.show_popup} close={this.deactivatePopup}>
+            {this.state.challenge
+                ? <ChallengeCompleteDetails challenge={this.state.challenge}
+                                            deactivatePopup={this.deactivatePopup}
+                                            influencerId = {this.state.influencerId}
+                />
+                : ""}
+        </PopUp>
+    }
+
+    activatePopup = (challenge, influencerId = null) => {
+        this.setState({
+            show_popup: true,
+            challenge: challenge,
+            influencerId: influencerId? influencerId : null
+        })
+    }
+
+    deactivatePopup = () => {
+        this.setState({
+            show_popup: false,
+            challenge: null,
+            influencerId: null
+        })
+    }
 }
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
 });
 
-const
-    mapDispatchToProps = (dispatch) => ({
-        setCurrentUser: (user) => dispatch(setCurrentUser(user))
-    });
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+});
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

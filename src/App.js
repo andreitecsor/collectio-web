@@ -12,6 +12,8 @@ import axios from "axios";
 import Header from "./components/header/header.component";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import ChallengePage from "./pages/challenges-page/challenge-page.component";
+import {setAllChallenges} from "./redux/challenge/challenge.actions";
 
 class App extends React.Component {
     constructor(props) {
@@ -25,7 +27,7 @@ class App extends React.Component {
     unsubscribeFromAuth = null;
 
     componentDidMount() {
-        const {setCurrentUser} = this.props;
+        const {setCurrentUser, setAllChallenges} = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(firebaseUser => {
             if (firebaseUser) {
                 axios.post('http://localhost:8080/api/users',
@@ -34,7 +36,6 @@ class App extends React.Component {
                         email: firebaseUser.email
                     })
                     .then(response => {
-                        console.log(response.data);
                         setCurrentUser(response.data);
                     })
                     .catch(reason => {
@@ -46,6 +47,12 @@ class App extends React.Component {
             } else {
                 setCurrentUser(firebaseUser);
             }
+
+            axios.get('http://localhost:8080/api/challenges/all')
+                .then(response => setAllChallenges(response.data))
+                .catch(reason => console.log(reason))
+
+
         });
     }
 
@@ -69,12 +76,12 @@ class App extends React.Component {
                                        ? (<HomePage/>)
                                        : (<AuthPage/>)
                                }/>
-                        {/*<Route exact path='/challenges'*/}
-                        {/*       render={() =>*/}
-                        {/*           this.props.currentUser*/}
-                        {/*               ? (<Challenges/>)*/}
-                        {/*               : (<AuthPage/>)*/}
-                        {/*       }/>*/}
+                        <Route exact path='/challenges'
+                               render={() =>
+                                   this.props.currentUser
+                                       ? (<ChallengePage/>)
+                                       : (<AuthPage/>)
+                               }/>
                     </Switch>) :
                     <span>Server is down</span>
                 }
@@ -83,15 +90,14 @@ class App extends React.Component {
     }
 }
 
-const
-    mapStateToProps = createStructuredSelector({
-        currentUser: selectCurrentUser
-    });
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+});
 
-const
-    mapDispatchToProps = (dispatch) => ({
-        setCurrentUser: (user) => dispatch(setCurrentUser(user))
-    });
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+    setAllChallenges: (challenges) => dispatch(setAllChallenges(challenges)),
+});
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

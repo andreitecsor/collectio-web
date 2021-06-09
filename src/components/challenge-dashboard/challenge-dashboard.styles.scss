@@ -1,0 +1,22 @@
+.challenge-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .active-challenges-header {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+
+    .header-block {
+      text-transform: capitalize;
+      width: 17%;
+
+      &:last-child {
+        width: 5%;
+      }
+    }
+  }
+}

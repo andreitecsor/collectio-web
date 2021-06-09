@@ -30,30 +30,18 @@ class ChallengeRank extends React.Component {
                 <div>Popular Challenges</div>
                 {
                     challenges.map(challenge =>
-                        <div className='challenge'>
+                        <div className='challenge' onClick={() => this.props.activatePopup(challenge)}>
                             <hr/>
                             <img src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
                                  alt={`${challenge.title} logo`}/>
-                            <div>{challenge.title}</div>
-
-                        </div>
-                    )
-                }
-                {/*TODO:Delete this*/}
-                {
-                    challenges.map(challenge =>
-                        <div className='challenge'>
-                            <hr/>
-                            <img src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
-                                 alt={`${challenge.title} logo`}/>
-                            <div>{challenge.title}</div>
-
+                            <div className='clickable-content'>{challenge.title}</div>
                         </div>
                     )
                 }
             </div>
         )
     }
+
 }
 
 export default ChallengeRank;

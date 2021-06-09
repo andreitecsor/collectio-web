@@ -49,7 +49,7 @@ class Newsfeed extends React.Component {
                 {
                     posts.map(post => (
                         <div className='newsfeed'>
-                            <Post key={post.postId} post={post}/>
+                            <Post key={post.postId} post={post} activatePopup={this.props.activatePopup}/>
                             <div className='connector'>|</div>
                         </div>
                     ))

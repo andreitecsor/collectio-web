@@ -4,6 +4,7 @@ import React from 'react';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.components";
 import {auth} from "../../utils/firebase.utils";
+import swal from "sweetalert";
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -21,7 +22,11 @@ class SignUp extends React.Component {
         const {email, password, confirmPassword} = this.state;
 
         if (password !== confirmPassword) {
-            alert("passwords don't match");
+            swal({
+                title: "Passwords don't match",
+                icon: "warning",
+                button: "Try again",
+            });
             return;
         }
 
@@ -33,7 +38,11 @@ class SignUp extends React.Component {
                 confirmPassword: ''
             });
         } catch (error) {
-            alert("email already used");
+            swal({
+                title: "Email already used",
+                icon: "error",
+                button: "Try again",
+            });
             console.error(error);
         }
     }

@@ -46,9 +46,26 @@ class ActiveChallenge extends React.Component {
 
     endChallenge = () => {
         const {user, challenge} = this.props.activeChallenge;
-        axios.put(`http://localhost:8080/api/joined/end/${user.uid}->${challenge.id}`)
-            .then(() => this.props.update())
-            .catch(reason => console.log(reason))
+        swal({
+            title: "Are you sure?",
+            text: "Once ended, you will lose all your current progress!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.put(`http://localhost:8080/api/joined/end/${user.uid}->${challenge.id}`)
+                        .then(() => {
+                            this.props.update()
+                            swal("Challenge ended successfully", {
+                                icon: "success",
+                            });
+                        })
+                        .catch(reason => console.log(reason))
+                }
+            });
+
     }
 }
 

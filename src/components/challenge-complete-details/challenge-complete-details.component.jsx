@@ -2,8 +2,32 @@ import './challenge-complete-details.styles.scss';
 import React from "react";
 import CustomButton from "../custom-button/custom-button.components";
 import StageDetails from "../stage-details/stage-details.component";
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUser} from "../../redux/user/user.selectors";
+import {connect} from "react-redux";
+import axios from "axios";
+import swal from "sweetalert";
 
 class ChallengeCompleteDetails extends React.Component {
+
+    joinChallenge(challenge) {
+        axios.put(`http://localhost:8080/api/joined/${this.props.currentUser.uid}->${challenge.id}`)
+            .then(response =>
+                swal({
+                    title: "Challenge joined!",
+                    text: `You joined ${challenge.title} challenge`,
+                    icon: "success",
+                    button: "Continue"
+                })
+            )
+            .catch(reason =>
+                swal({
+                    title: "You are already in this challenge",
+                    icon: "error",
+                    button: "Continue"
+                })
+            )
+    }
 
     setStage(stages) {
         let stagesElements = [];
@@ -26,7 +50,7 @@ class ChallengeCompleteDetails extends React.Component {
                     this.setStage(stages)
                 }
                 <div className='button'>
-                    <CustomButton>Join now</CustomButton>
+                    <CustomButton onClick={() => this.joinChallenge(challenge)}>Join now</CustomButton>
                 </div>
             </div>
         )
@@ -34,4 +58,8 @@ class ChallengeCompleteDetails extends React.Component {
 
 }
 
-export default ChallengeCompleteDetails;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps)(ChallengeCompleteDetails);

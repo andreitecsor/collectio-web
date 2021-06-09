@@ -7,18 +7,31 @@ import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {connect} from "react-redux";
 import axios from "axios";
 import swal from "sweetalert";
+import {setAllActiveChallenges} from "../../redux/challenge/challenge.actions";
 
 class ChallengeCompleteDetails extends React.Component {
 
+    getActiveChallenges = () => {
+        const {setAllActiveChallenges} = this.props;
+        axios.get(`http://localhost:8080/api/joined/actives/${this.props.currentUser.uid}`)
+            .then(response => {
+                setAllActiveChallenges(response.data)
+                this.props.deactivatePopup()
+            })
+            .catch(reason => console.log(reason));
+    }
+
     joinChallenge(challenge) {
         axios.put(`http://localhost:8080/api/joined/${this.props.currentUser.uid}->${challenge.id}`)
-            .then(response =>
-                swal({
-                    title: "Challenge joined!",
-                    text: `You joined ${challenge.title} challenge`,
-                    icon: "success",
-                    button: "Continue"
-                })
+            .then(response => {
+                    swal({
+                        title: "Challenge joined!",
+                        text: `You joined ${challenge.title} challenge`,
+                        icon: "success",
+                        button: "Continue"
+                    });
+                    this.getActiveChallenges();
+                }
             )
             .catch(reason =>
                 swal({
@@ -62,4 +75,8 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(ChallengeCompleteDetails);
+const mapDispatchToProps = (dispatch) => ({
+    setAllActiveChallenges: (challenges) => dispatch(setAllActiveChallenges(challenges)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeCompleteDetails);

@@ -12,6 +12,11 @@ const challengeReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 allChallenges: action.payload
             }
+        case ChallengeActionTypes.SET_ALL_ACTIVE_CHALLENGES:
+            return {
+                ...state,
+                activeChallenges: action.payload
+            }
         default:
             return state;
     }

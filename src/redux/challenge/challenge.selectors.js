@@ -6,3 +6,8 @@ export const selectAllChallenges = createSelector(
     [selectChallenges],
     (challenge) => challenge.allChallenges
 );
+
+export const selectAllActiveChallenges = createSelector(
+    [selectChallenges],
+    (challenge) => challenge.activeChallenges
+);

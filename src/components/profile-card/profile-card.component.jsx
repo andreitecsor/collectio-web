@@ -3,32 +3,15 @@ import './profile-card.styles.scss';
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {connect} from "react-redux";
-import axios from "axios";
+import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 
 class ProfileCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            activeChallenges: 0,
-            peopleInfluenced: 0
-        }
-        this.getActiveChallenges();
-        this.getPeopleInfluenced();
-    }
-
-    getActiveChallenges = () => {
-        axios.get(`http://localhost:8080/api/joined/actives/${this.props.currentUser.uid}`)
-            .then(response => this.setState({
-                activeChallenges: response.data.length
-            }))
-            .catch(reason => console.log(reason));
-    }
-
-    getPeopleInfluenced = () => {
-        //TODO: get people influenced
     }
 
     render() {
+        const {activeChallenges} = this.props;
         const {displayName, username} = this.props.currentUser;
         return (
             <div className='profile-card'>
@@ -36,11 +19,11 @@ class ProfileCard extends React.Component {
                      alt='Profile avatar'/>
                 <div>{displayName}</div>
                 <hr/>
-                <div>Active Challenges : {this.state.activeChallenges}</div>
+                <div>Active Challenges : {activeChallenges.length}</div>
                 <hr/>
-                <div>Challenges started because of you : {this.state.peopleInfluenced}</div>
+                <div>Challenges started because of you : 0</div>
                 <hr/>
-                <div>People influenced : {this.state.peopleInfluenced}</div>
+                <div>People influenced : 0</div>
             </div>
         )
     }
@@ -48,6 +31,7 @@ class ProfileCard extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
         currentUser: selectCurrentUser,
+        activeChallenges: selectAllActiveChallenges
     }
 );
 

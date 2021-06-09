@@ -2,10 +2,6 @@ import React from 'react';
 import './challenge-card.styles.scss';
 
 class ChallengeCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {challenge} = this.props;
         return (

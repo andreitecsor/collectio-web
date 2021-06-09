@@ -16,21 +16,6 @@ class ChallengePage extends React.Component {
 
     }
 
-    activatePopup = (challenge) => {
-        console.log("Am ajuns aici")
-        this.setState({
-            show_popup: true,
-            challenge: challenge
-        })
-    }
-
-    deactivatePopup = () => {
-        this.setState({
-            show_popup: false,
-            challenge: null
-        })
-    }
-
     render() {
         return (
             <div className='challenge-page'>
@@ -49,6 +34,20 @@ class ChallengePage extends React.Component {
                 </PopUp>
             </div>
         )
+    }
+
+    activatePopup = (challenge) => {
+        this.setState({
+            show_popup: true,
+            challenge: challenge
+        })
+    }
+
+    deactivatePopup = () => {
+        this.setState({
+            show_popup: false,
+            challenge: null
+        })
     }
 }
 

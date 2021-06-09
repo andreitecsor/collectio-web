@@ -58,7 +58,8 @@ class ChallengeDashboard extends React.Component {
                             <ActiveChallenge
                                 key={activeChallenge.id}
                                 activeChallenge={activeChallenge}
-                                update={this.getActiveChallenges}/>)
+                                update={this.getActiveChallenges}
+                                activatePopup={this.props.activatePopup}/>)
                 }
             </div>
         )

@@ -1,4 +1,4 @@
-.challenge-rank{
+.challenge-rank {
   width: 25vw;
   height: 350px;
   background-color: #ffffff;
@@ -10,9 +10,19 @@
   border-radius: 3px;
   margin-top: 51.5px;
 
-  .challenge{
+  .challenge {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
+
+    .clickable-content {
+      cursor: pointer;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

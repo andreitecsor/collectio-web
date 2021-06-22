@@ -6,10 +6,6 @@ import {connect} from "react-redux";
 import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 
 class ProfileCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {activeChallenges} = this.props;
         const {displayName, username} = this.props.currentUser;

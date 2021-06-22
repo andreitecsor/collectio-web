@@ -9,10 +9,6 @@ import {setAllActiveChallenges} from "../../redux/challenge/challenge.actions";
 import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 
 class ChallengeDashboard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     getActiveChallenges = () => {
         const {setAllActiveChallenges} = this.props;
         axios.get(`http://localhost:8080/api/joined/actives/${this.props.currentUser.uid}`)

@@ -1,8 +1,13 @@
 .profile-page{
   padding: 120px 70px;
+  background-color: #f6f6f6;
 
   .content {
     display: flex;
     justify-content: space-between;
+  }
+
+  .no-user{
+    text-align: center;
   }
 }

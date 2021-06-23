@@ -2,22 +2,25 @@ import './profile-page.styles.scss';
 import React from "react";
 import {withRouter} from 'react-router-dom';
 import axios from "axios";
-import ProfileCard from "../../components/profile-card/profile-card.component";
+import UserInfo from "../../components/user-info/user-info.component";
+import PersonalActivityFeed from "../../components/personal-activity-feed/personal-activity-feed.component";
 
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: "",
             profileUser: null
         }
     }
 
-    componentDidMount() {
+    getProfileUser() {
         const username = this.props.match.params.username;
         axios.get(`http://localhost:8080/api/users/username/${username}`)
             .then(response => {
                 if (response.data) {
                     this.setState({
+                        username: this.props.match.params.username,
                         profileUser: response.data
                     })
                 }
@@ -26,14 +29,18 @@ class ProfilePage extends React.Component {
     }
 
     render() {
+        if (this.state.username !== this.props.match.params.username) {
+            this.getProfileUser();
+        }
         return (
-            <div className='profile-page'>
+            <div className='profile-page' key={this.props.match.params.username}>
                 {
                     this.state.profileUser
                         ? (<div className='content'>
-                            <ProfileCard onProfile/>
+                            <UserInfo user={this.state.profileUser}/>
+                            <PersonalActivityFeed user={this.state.profileUser} pageNumber={0}/>
                         </div>)
-                        : <div>USER DOES NOT EXISTS</div>
+                        : <div className='no-user'>USER DOES NOT EXIST</div>
                 }
             </div>
         )

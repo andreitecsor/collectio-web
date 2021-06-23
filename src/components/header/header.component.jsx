@@ -22,7 +22,7 @@ class Header extends React.Component {
     }
 
     render() {
-        const {displayName} = this.props.currentUser;
+        const {username, displayName} = this.props.currentUser;
         return (
             <div className='header'>
                 <Link to='/'>
@@ -48,7 +48,7 @@ class Header extends React.Component {
                                 PROFILE
                             </Link>
                             :
-                            <Link className="option" to='/'>
+                            <Link className="option" to={`/${username}`}>
                                 {displayName.toUpperCase()}
                             </Link>
                     }

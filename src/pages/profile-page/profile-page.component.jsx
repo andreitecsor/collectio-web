@@ -39,7 +39,7 @@ class ProfilePage extends React.Component {
                             <hr/>
                             <div className='activity'>
                                 <AchievementList user={this.state.profileUser} activatePopup={this.activatePopup}/>
-                                <PersonalActivityFeed user={this.state.profileUser} pageNumber={0}/>
+                                <PersonalActivityFeed user={this.state.profileUser} pageNumber={0} activatePopup={this.activatePopup}/>
                             </div>
                         </div>)
                         : <div className='no-user'>USER DOES NOT EXIST</div>

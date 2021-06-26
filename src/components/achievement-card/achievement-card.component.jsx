@@ -5,7 +5,7 @@ class AchievementCard extends React.Component {
     render() {
         const {achievement} = this.props;
         return (
-            <div className='achievement-card'>
+            <div className='achievement-card' onClick={() => this.props.activatePopup(achievement.join.challenge,achievement.join.user.uid)}>
                 <img
                     src={require(`../../assets/badges/${achievement.reach.stage.badgeUrl}`).default}
                     alt={`${achievement.join.challenge.title} stage logo`}/>

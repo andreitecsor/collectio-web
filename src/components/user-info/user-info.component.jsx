@@ -81,12 +81,18 @@ class UserInfo extends React.Component {
                 <hr/>
                 <div>{followings.length} following</div>
                 {user.uid === currentUser.uid
-                    ? <CustomButton>EDIT PROFILE</CustomButton>
-                    : <CustomButton
-                        onClick={this.followUnfollow}> {this.state.loggedUserFollowing ? 'UNFOLLOW' : 'FOLLOW'}</CustomButton>
+                    ? <div className='button'>
+                        <CustomButton>EDIT PROFILE</CustomButton>
+                    </div>
+                    : (<div className='button'>
+                        <CustomButton
+                            onClick={this.followUnfollow}>{this.state.loggedUserFollowing ? 'UNFOLLOW' : 'FOLLOW'}</CustomButton>
+                    </div>)
                 }
                 {user.uid === currentUser.uid
-                    ?   <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
+                    ? (<div className='button'>
+                        <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
+                    </div>)
                     : null}
 
             </div>

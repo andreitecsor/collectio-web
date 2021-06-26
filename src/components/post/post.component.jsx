@@ -35,7 +35,7 @@ class Post extends React.Component {
                         <span> started following </span>
                         <img src={`https://robohash.org/${following.username}?set=set1`} width='35' height='35'
                              alt={`${following.username} generated avatar`}/>
-                        <span className='clickable-content'> {following.displayName}</span>
+                        <Link to={`/${following.username}`} className='clickable-content'> {following.displayName}</Link>
                     </div>)
             case 'CHALLENGE':
                 return (<div className='message'>

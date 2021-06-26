@@ -13,7 +13,6 @@ class ActiveChallenge extends React.Component {
         const {startedAt, lastChecked, challenge, bestRecord} = this.props.activeChallenge;
         let currentWeek = weeksBetween(startedAt, lastChecked);
         const challengeWithStages = allChallenges.find(challengeWithStages => challengeWithStages.id === challenge.id);
-        console.log(challengeWithStages);
         return (
             <div className='active-challenge'>
                 <div className='logo-container' onClick={() => this.props.activatePopup(challengeWithStages)}>

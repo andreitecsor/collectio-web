@@ -30,6 +30,7 @@ class AchievementList extends React.Component {
         if (this.props.user !== this.state.user) {
             this.getUsersAchievements();
         }
+        console.log(this.state.achievements)
         return (<div className='achievement-list'>
             {
                 this.state.achievements.length === 0
@@ -38,7 +39,8 @@ class AchievementList extends React.Component {
                         <div className='title'>Achievements:</div>
                         {this.state.achievements.map(achievement => <AchievementCard
                             key={achievement.join.id + achievement.reach.id}
-                            achievement={achievement}/>)}
+                            achievement={achievement}
+                            activatePopup={this.props.activatePopup}/>)}
                     </div>
             }
         </div>)

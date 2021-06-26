@@ -10,6 +10,22 @@ import swal from "sweetalert";
 import {setAllActiveChallenges} from "../../redux/challenge/challenge.actions";
 
 class ChallengeCompleteDetails extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            stages: this.props.challenge.stages
+        }
+
+        if (this.props.challenge.stages === null) {
+            axios.get(`http://localhost:8080/api/challenges/${this.props.challenge.id}`)
+                .then(response => this.setState({
+                    stages: response.data.stages
+                }))
+                .catch(response => console.log(response))
+        }
+    }
+
 
     getActiveChallenges = () => {
         const {setAllActiveChallenges} = this.props;
@@ -66,18 +82,20 @@ class ChallengeCompleteDetails extends React.Component {
     }
 
     setStage(stages) {
-        let stagesElements = [];
-        stagesElements.push(<StageDetails stage={stages[0]} prevWeeksCondition={0}/>);
-        for (let i = 1; i < stages.length; i++) {
-            let prevWeeksCondition = stages[i - 1].weeksCondition;
-            stagesElements.push(<StageDetails stage={stages[i]} prevWeeksCondition={prevWeeksCondition}/>);
+        if (stages) {
+            let stagesElements = [];
+            stagesElements.push(<StageDetails stage={stages[0]} prevWeeksCondition={0}/>);
+            for (let i = 1; i < stages.length; i++) {
+                let prevWeeksCondition = stages[i - 1].weeksCondition;
+                stagesElements.push(<StageDetails stage={stages[i]} prevWeeksCondition={prevWeeksCondition}/>);
+            }
+            return stagesElements;
         }
-        return stagesElements;
     }
 
     render() {
         const {challenge, influencerId} = this.props;
-        const {stages} = challenge;
+        const {stages} = this.state;
         return (
             <div className='challenge-complete-details'>
                 <h2> {challenge.title}</h2>

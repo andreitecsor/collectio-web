@@ -14,6 +14,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ChallengePage from "./pages/challenges-page/challenge-page.component";
 import {setAllChallenges} from "./redux/challenge/challenge.actions";
+import ProfilePage from "./pages/profile-page/profile-page.component";
 
 class App extends React.Component {
     constructor(props) {
@@ -80,6 +81,18 @@ class App extends React.Component {
                                render={() =>
                                    this.props.currentUser
                                        ? (<ChallengePage/>)
+                                       : (<AuthPage/>)
+                               }/>
+                        <Route exact path='/challenges'
+                               render={() =>
+                                   this.props.currentUser
+                                       ? (<ChallengePage/>)
+                                       : (<AuthPage/>)
+                               }/>
+                        <Route exact path='/:username'
+                               render={() =>
+                                   this.props.currentUser
+                                       ? (<ProfilePage/>)
                                        : (<AuthPage/>)
                                }/>
                     </Switch>) :

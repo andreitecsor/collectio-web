@@ -19,7 +19,6 @@ import ChallengeCompleteDetails from "../../components/challenge-complete-detail
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.currentUser)
         const {displayName, username} = props.currentUser;
 
         this.state = {

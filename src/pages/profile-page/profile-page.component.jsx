@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import axios from "axios";
 import UserInfo from "../../components/user-info/user-info.component";
 import PersonalActivityFeed from "../../components/personal-activity-feed/personal-activity-feed.component";
+import AchievementList from "../../components/achievement-list/achievement-list.component";
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -38,7 +39,11 @@ class ProfilePage extends React.Component {
                     this.state.profileUser
                         ? (<div className='content'>
                             <UserInfo user={this.state.profileUser}/>
-                            <PersonalActivityFeed user={this.state.profileUser} pageNumber={0}/>
+                        <hr/>
+                            <div className='activity'>
+                                <AchievementList user={this.state.profileUser}/>
+                                <PersonalActivityFeed user={this.state.profileUser} pageNumber={0}/>
+                            </div>
                         </div>)
                         : <div className='no-user'>USER DOES NOT EXIST</div>
                 }

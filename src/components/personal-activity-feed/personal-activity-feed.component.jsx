@@ -42,27 +42,27 @@ class PersonalActivityFeed extends React.Component {
             })
         }
         const {posts} = this.state;
-        console.log(this.state)
         return (
-            <div>
-                <div>BADGES</div>
-                <div className='newsfeed'>
-                    {
-                        posts.map(post => (
-                            <div className='newsfeed'>
-                                <Post key={post.postId} post={post} activatePopup={this.props.activatePopup}/>
-                                <div className='connector'>|</div>
-                            </div>
-                        ))
-                    }
-                    {this.state.allPostsShown
-                        ? <div className='title'>That's all for now</div>
-                        : <CustomButton onClick={() => this.getPersonalActivityPosts()}>Activity</CustomButton>
-                    }
-                </div>
+            <div className='personal-activity-feed'>
+                {
+                    posts.map(post => (
+                        <div className='personal-activity-feed'>
+                            <Post key={post.postId} post={post} activatePopup={this.props.activatePopup}/>
+                            <div className='connector'>|</div>
+                        </div>
+                    ))
+                }
+                {this.state.allPostsShown
+                    ? <div className='title'>That's all for now</div>
+                    : <div className='button'>
+                        <CustomButton onClick={() => this.getPersonalActivityPosts()}>Show activity</CustomButton>
+                    </div>
+
+                }
             </div>)
 
     }
+
 }
 
 export default PersonalActivityFeed;

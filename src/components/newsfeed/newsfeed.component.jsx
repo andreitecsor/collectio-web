@@ -63,11 +63,10 @@ class Newsfeed extends React.Component {
 
 }
 
-const
-    mapStateToProps = createStructuredSelector({
-            currentUser: selectCurrentUser
-        }
-    );
+const mapStateToProps = createStructuredSelector({
+        currentUser: selectCurrentUser
+    }
+);
 
 
 export default connect(mapStateToProps)(Newsfeed);

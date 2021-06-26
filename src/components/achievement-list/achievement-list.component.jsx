@@ -27,13 +27,16 @@ class AchievementList extends React.Component {
             {
                 this.state.achievements.length === 0
                     ? ""
-                    : this.state.achievements.map(achievement => <AchievementCard
-                        key={achievement.join.id + achievement.reach.id}
-                        achievement={achievement}/>)
+                    :
+                    <div>
+                        <div className='title'>Achievements:</div>
+                        {this.state.achievements.map(achievement => <AchievementCard
+                            key={achievement.join.id + achievement.reach.id}
+                            achievement={achievement}/>)}
+                    </div>
             }
         </div>)
     }
-
 }
 
 export default AchievementList;

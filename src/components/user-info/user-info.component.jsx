@@ -75,7 +75,7 @@ class UserInfo extends React.Component {
             <div className='user-info'>
                 <img src={`https://robohash.org/${user.username}?set=set1`} width='150' height='150'
                      alt='Profile avatar'/>
-                <div>{user.displayName}</div>
+                <h2>{user.displayName}</h2>
                 <hr/>
                 <div>{followers.length} {followers.length === 1 ? 'follower' : 'followers'}</div>
                 <hr/>

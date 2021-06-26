@@ -1,18 +1,25 @@
-.card-container {
+.achievement-card {
 
-  h3 {
+  p {
     text-align: center;
     margin: 0;
+    padding: 0;
   }
 
   img {
-    height: 120px;
+    height: 150px;
   }
 
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: #d3ecf8;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid grey;
+  border-radius: 5px;
   padding: 15px;
   cursor: pointer;
+}
+
+.achievement-card:hover {
+  transform: scale(1.05);
 }

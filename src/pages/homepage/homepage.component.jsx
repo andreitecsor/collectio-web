@@ -3,7 +3,6 @@ import React from 'react';
 import './homepage.styles.scss';
 import CustomButton from "../../components/custom-button/custom-button.components";
 import PopUp from "../../components/pop-up/pop-up.component";
-import {auth} from "../../utils/firebase.utils";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {connect} from "react-redux";
@@ -38,7 +37,7 @@ class HomePage extends React.Component {
         axios.put(`http://localhost:8080/api/users/${this.props.currentUser.uid}`,
             {
                 displayName: this.state.displayName,
-                username: this.state.username
+                username: this.state.username.toLowerCase()
             })
             .then(response => {
                 setCurrentUser(response.data);
@@ -69,7 +68,6 @@ class HomePage extends React.Component {
                     <Newsfeed activatePopup={this.activatePopup}/>
                     <ChallengeRank activatePopup={this.activatePopup}/>
                 </div>
-                <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
             </div>)
     }
 

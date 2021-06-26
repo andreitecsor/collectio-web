@@ -1,6 +1,7 @@
 import React from "react";
 import './post.styles.scss';
 import TimeAgo from 'javascript-time-ago';
+import {Link} from "react-router-dom";
 
 
 class Post extends React.Component {
@@ -30,7 +31,7 @@ class Post extends React.Component {
                     <div className='message'>
                         <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                              alt={`${author.username} generated avatar`}/>
-                        <span className='clickable-content'>{author.displayName}</span>
+                        <Link to={`/${author.username}`} className='clickable-content'>{author.displayName}</Link>
                         <span> started following </span>
                         <img src={`https://robohash.org/${following.username}?set=set1`} width='35' height='35'
                              alt={`${following.username} generated avatar`}/>
@@ -40,7 +41,7 @@ class Post extends React.Component {
                 return (<div className='message'>
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
-                    <span className='clickable-content'>{author.displayName}</span>
+                    <Link to={`/${author.username}`} className='clickable-content'>{author.displayName}</Link>
                     <span> joined the </span>
                     <span className='clickable-content'
                           onClick={() => this.props.activatePopup(challenge, author.uid)}>{challenge.title}</span>
@@ -50,7 +51,7 @@ class Post extends React.Component {
                 return (<div className='message'>
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
-                    <span className='clickable-content'>{author.displayName}</span>
+                    <Link to={`/${author.username}`} className='clickable-content'>{author.displayName}</Link>
                     <span> completed {stage.weeksCondition} {stage.weeksCondition === 1 ? "week" : "weeks"} in the </span>
                     <span className='clickable-content'
                           onClick={() => this.props.activatePopup(challenge, author.uid)}>{challenge.title}</span>

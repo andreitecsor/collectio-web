@@ -17,7 +17,6 @@ class UserInfo extends React.Component {
             followings: [],
             loggedUserFollowing: false
         }
-        console.log(this.props.user)
     }
 
     componentDidMount() {

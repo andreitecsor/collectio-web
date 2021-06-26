@@ -9,11 +9,16 @@ class AchievementList extends React.Component {
         super(props);
 
         this.state = {
+            user: this.props.user,
             achievements: []
         }
     }
 
     componentDidMount() {
+        this.getUsersAchievements();
+    }
+
+    getUsersAchievements() {
         axios.get(`http://localhost:8080/api/joined/achievements/${this.props.user.uid}`)
             .then(response => this.setState({
                 achievements: response.data
@@ -22,13 +27,14 @@ class AchievementList extends React.Component {
     }
 
     render() {
-        console.log(this.state.achievements)
+        if (this.props.user !== this.state.user) {
+            this.getUsersAchievements();
+        }
         return (<div className='achievement-list'>
             {
                 this.state.achievements.length === 0
                     ? ""
-                    :
-                    <div>
+                    : <div>
                         <div className='title'>Achievements:</div>
                         {this.state.achievements.map(achievement => <AchievementCard
                             key={achievement.join.id + achievement.reach.id}

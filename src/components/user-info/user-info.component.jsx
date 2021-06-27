@@ -76,22 +76,23 @@ class UserInfo extends React.Component {
                 <img src={`https://robohash.org/${user.username}?set=set1`} width='150' height='150'
                      alt='Profile avatar'/>
                 <h2>{user.displayName}</h2>
-                <hr/>
-                <div>{followers.length} {followers.length === 1 ? 'follower' : 'followers'}</div>
-                <hr/>
-                <div>{followings.length} following</div>
+                <div>
+                    <span>{followers.length} {followers.length === 1 ? 'follower' : 'followers'} - </span>
+                    <span>{followings.length} following</span>
+                </div>
                 {user.uid === currentUser.uid
                     ? <div className='button'>
                         <CustomButton>EDIT PROFILE</CustomButton>
                     </div>
                     : (<div className='button'>
                         <CustomButton
-                            onClick={this.followUnfollow}>{this.state.loggedUserFollowing ? 'UNFOLLOW' : 'FOLLOW'}</CustomButton>
+                            onClick={this.followUnfollow}>{this.state.loggedUserFollowing ? 'UNFOLLOW' : 'FOLLOW'}
+                        </CustomButton>
                     </div>)
                 }
                 {user.uid === currentUser.uid
                     ? (<div className='button'>
-                        <CustomButton type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
+                        <CustomButton isGoogleSingIn type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
                     </div>)
                     : null}
 

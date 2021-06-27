@@ -39,7 +39,7 @@ class ProfileCard extends React.Component {
             <div className='profile-card'>
                 <img src={`https://robohash.org/${username}?set=set1`} width='150' height='150'
                      alt='Profile avatar'/>
-                <div>{displayName}</div>
+                <h3>{displayName}</h3>
                 <hr/>
                 <div>Active Challenges : {activeChallenges.length}</div>
                 <hr/>

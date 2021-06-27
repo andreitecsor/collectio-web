@@ -5,6 +5,7 @@ import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {connect} from "react-redux";
 import {selectAllActiveChallenges} from "../../redux/challenge/challenge.selectors";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 class ProfileCard extends React.Component {
     constructor(props) {
@@ -39,13 +40,13 @@ class ProfileCard extends React.Component {
             <div className='profile-card'>
                 <img src={`https://robohash.org/${username}?set=set1`} width='150' height='150'
                      alt='Profile avatar'/>
-                <h3>{displayName}</h3>
-                <hr/>
-                <div>Active Challenges : {activeChallenges.length}</div>
-                <hr/>
-                <div>Challenges started because of you : {this.state.challengesByInfluence}</div>
-                <hr/>
-                <div>People influenced : {this.state.influencedPeople}</div>
+                <h3><Link to={`/profile/${username}`}>{displayName}</Link></h3>
+                <hr className='separator'/>
+                <Link to='/challenges' >Active Challenges : <span className='clickable-content'>{activeChallenges.length}</span></Link>
+                <hr className='separator2'/>
+                <div>Challenges started because of you : <span className='bold'>{this.state.challengesByInfluence}</span></div>
+                <hr className='separator2'/>
+                <div>People influenced : <span className='bold'>{this.state.influencedPeople}</span></div>
             </div>
         )
     }

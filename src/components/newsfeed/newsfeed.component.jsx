@@ -5,6 +5,7 @@ import axios from "axios";
 import {createStructuredSelector} from "reselect";
 import {connect} from "react-redux";
 import Post from "../post/post.component";
+import CustomButton from "../custom-button/custom-button.components";
 
 class Newsfeed extends React.Component {
     constructor(props) {
@@ -56,11 +57,12 @@ class Newsfeed extends React.Component {
                 }
                 {this.state.allPostsShown
                     ? <div className='title'>That's all for now</div>
-                    : <button onClick={() => this.getNewsfeedPosts()}>Show more</button>
+                    : (<div className='button'>
+                        <CustomButton onClick={() => this.getNewsfeedPosts()}>Show more</CustomButton>
+                    </div>)
                 }
             </div>)
     }
-
 }
 
 const mapStateToProps = createStructuredSelector({

@@ -1,14 +1,22 @@
 .user-info {
   width: 23vw;
-  height: 500px;
+  height: 315px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
   border: 2px solid #acacac;
+  border-radius: 3px;
+  margin-top: 14px;
 
   h2 {
     margin: 0;
+  }
+
+  .connector {
+    margin-top: -5px;
+    color: #acacac;
+    margin-bottom: -20px;
   }
 
   .button {

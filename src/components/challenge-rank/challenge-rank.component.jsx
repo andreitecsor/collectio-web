@@ -27,11 +27,11 @@ class ChallengeRank extends React.Component {
         const {challenges} = this.state;
         return (
             <div className='challenge-rank'>
-                <div>Popular Challenges</div>
+                <h3>Popular Challenges</h3>
                 {
                     challenges.map(challenge =>
                         <div className='challenge' onClick={() => this.props.activatePopup(challenge)}>
-                            <hr/>
+                            <hr className='separator'/>
                             <img src={require(`../../assets/challenges/${challenge.logoUrl}`).default}
                                  alt={`${challenge.title} logo`}/>
                             <div className='clickable-content'>{challenge.title}</div>

@@ -1,6 +1,6 @@
 import './header.styles.scss';
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import FormInput from "../form-input/form-input.component";
 import {ReactComponent as Logo} from "../../assets/logo.svg";
 import {createStructuredSelector} from "reselect";
@@ -16,9 +16,19 @@ class Header extends React.Component {
         }
     }
 
-    handleChange = event => {
+    handleChange = (event) => {
         const {value, name} = event.target;
         this.setState({[name]: value})
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        if (this.state.search) {
+            this.props.history.push(`/search=${this.state.search}`);
+            this.setState({
+                search : ""
+            })
+        }
     }
 
     render() {
@@ -30,7 +40,7 @@ class Header extends React.Component {
                 </Link>
 
                 <div className="options">
-                    <div className="option">
+                    <form onSubmit={this.handleSubmit} className="option">
                         <FormInput
                             name='search'
                             type='text'
@@ -38,7 +48,7 @@ class Header extends React.Component {
                             handleChange={this.handleChange}
                             label='Search'
                         />
-                    </div>
+                    </form>
                     <Link className="option" to='/challenges'>
                         CHALLENGES
                     </Link>
@@ -48,7 +58,7 @@ class Header extends React.Component {
                                 PROFILE
                             </Link>
                             :
-                            <Link className="option" to={`/${username}`}>
+                            <Link className="option" to={`/profile/${username}`}>
                                 {displayName.toUpperCase()}
                             </Link>
                     }
@@ -63,4 +73,4 @@ const
         currentUser: selectCurrentUser
     });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(withRouter(Header));

@@ -31,17 +31,17 @@ class Post extends React.Component {
                     <div className='message'>
                         <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                              alt={`${author.username} generated avatar`}/>
-                        <Link to={`/${author.username}`} className='clickable-content'>{author.displayName}</Link>
+                        <Link to={`/profile/${author.username}`} className='clickable-content'>{author.displayName}</Link>
                         <span> started following </span>
                         <img src={`https://robohash.org/${following.username}?set=set1`} width='35' height='35'
                              alt={`${following.username} generated avatar`}/>
-                        <Link to={`/${following.username}`} className='clickable-content'> {following.displayName}</Link>
+                        <Link to={`/profile/${following.username}`} className='clickable-content'> {following.displayName}</Link>
                     </div>)
             case 'CHALLENGE':
                 return (<div className='message'>
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
-                    <Link to={`/${author.username}`} className='clickable-content'>{author.displayName}</Link>
+                    <Link to={`/profile/${author.username}`} className='clickable-content'>{author.displayName}</Link>
                     <span> joined the </span>
                     <span className='clickable-content'
                           onClick={() => this.props.activatePopup(challenge, author.uid)}>{challenge.title}</span>
@@ -51,7 +51,7 @@ class Post extends React.Component {
                 return (<div className='message'>
                     <img src={`https://robohash.org/${author.username}?set=set1`} width='35' height='35'
                          alt={`${author.username} generated avatar`}/>
-                    <Link to={`/${author.username}`} className='clickable-content'>{author.displayName}</Link>
+                    <Link to={`/profile/${author.username}`} className='clickable-content'>{author.displayName}</Link>
                     <span> completed {stage.weeksCondition} {stage.weeksCondition === 1 ? "week" : "weeks"} in the </span>
                     <span className='clickable-content'
                           onClick={() => this.props.activatePopup(challenge, author.uid)}>{challenge.title}</span>

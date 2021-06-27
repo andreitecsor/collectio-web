@@ -1,0 +1,10 @@
+.search-page {
+  background-color: #f6f6f6;
+  padding: 120px 70px;
+
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 25px;
+  }
+}

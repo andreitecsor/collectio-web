@@ -37,10 +37,13 @@ class AchievementList extends React.Component {
                     ? ""
                     : <div>
                         <div className='title'>Achievements:</div>
-                        {this.state.achievements.map(achievement => <AchievementCard
-                            key={achievement.join.id + achievement.reach.id}
-                            achievement={achievement}
-                            activatePopup={this.props.activatePopup}/>)}
+                        <div className='list'>
+                            {this.state.achievements.map(achievement => <AchievementCard
+                                key={achievement.join.id + achievement.reach.id}
+                                achievement={achievement}
+                                activatePopup={this.props.activatePopup}/>)}
+                        </div>
+
                     </div>
             }
         </div>)

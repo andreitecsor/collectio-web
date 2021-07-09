@@ -6,6 +6,14 @@ import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {auth} from "../../utils/firebase.utils";
+import * as PropTypes from "prop-types";
+import {withRouter} from "react-router-dom";
+
+function Redirect(props) {
+    return null;
+}
+
+Redirect.propTypes = {to: PropTypes.bool};
 
 class UserInfo extends React.Component {
     constructor(props) {
@@ -92,12 +100,16 @@ class UserInfo extends React.Component {
                 }
                 {user.uid === currentUser.uid
                     ? (<div className='button'>
-                        <CustomButton isGoogleSingIn type='button' onClick={() => auth.signOut()}>LOGOUT</CustomButton>
+                        <CustomButton isGoogleSingIn type='button' onClick={() => this.logout()}>LOGOUT</CustomButton>
                     </div>)
                     : null}
 
             </div>
         )
+    }
+
+    logout() {
+        auth.signOut().then(r => this.props.history.push('/'));
     }
 }
 
@@ -105,4 +117,4 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(UserInfo);
+export default connect(mapStateToProps)(withRouter(UserInfo));

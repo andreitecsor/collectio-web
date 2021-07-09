@@ -66,10 +66,33 @@ class SignIn extends React.Component {
                             Sign in with Google
                         </CustomButton>
                     </div>
-                    <span className='utility-text'>Forgot your password?</span>
+                    <span className='utility-text'
+                          onClick={() => this.triggerForgotPassword()}>Forgot your password?</span>
                 </form>
             </div>
         )
+    }
+
+    triggerForgotPassword() {
+        if (this.state.email.length === 0) {
+            swal({
+                title: "Please write your email in the email box",
+                icon: "warning",
+                button: "Continue"
+            })
+        } else {
+            auth.sendPasswordResetEmail(this.state.email)
+                .then(response => swal({
+                    title: "Recovery email sent",
+                    icon: "success",
+                    button: "Continue"
+                }))
+                .catch(reason => swal({
+                    title: "Invalid email address",
+                    icon: "error",
+                    button: "Continue"
+                }))
+        }
     }
 }
 

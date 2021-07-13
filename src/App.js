@@ -16,6 +16,7 @@ import ChallengePage from "./pages/challenges-page/challenge-page.component";
 import {setAllChallenges} from "./redux/challenge/challenge.actions";
 import ProfilePage from "./pages/profile-page/profile-page.component";
 import SearchPage from "./pages/search-page/search-page.component";
+import EditProfilePage from "./pages/edit-profile-page/edit-profile-page.component";
 
 class App extends React.Component {
     constructor(props) {
@@ -100,6 +101,12 @@ class App extends React.Component {
                                render={() =>
                                    this.props.currentUser
                                        ? (<SearchPage/>)
+                                       : (<AuthPage/>)
+                               }/>
+                        <Route exact path='/edit'
+                               render={() =>
+                                   this.props.currentUser
+                                       ? (<EditProfilePage/>)
                                        : (<AuthPage/>)
                                }/>
                     </Switch>) :

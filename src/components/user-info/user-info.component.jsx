@@ -75,6 +75,10 @@ class UserInfo extends React.Component {
         }
     }
 
+    goToEditPage = () => {
+        this.props.history.push('/edit');
+    }
+
     render() {
         const {user} = this.props;
         const {currentUser} = this.props;
@@ -90,7 +94,7 @@ class UserInfo extends React.Component {
                 </div>
                 {user.uid === currentUser.uid
                     ? <div className='button'>
-                        <CustomButton>EDIT PROFILE</CustomButton>
+                        <CustomButton onClick={this.goToEditPage}>EDIT PROFILE</CustomButton>
                     </div>
                     : (<div className='button'>
                         <CustomButton

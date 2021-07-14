@@ -1,0 +1,39 @@
+.stage-details {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  .stage-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
+    width: 100%;
+
+    .to-complete {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding-left: 20px;
+      margin: 0;
+
+      .to-do{
+        font-size: 27px;
+      }
+    }
+
+    .award {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+      margin: 0;
+      align-items: center;
+
+      img {
+        height: 75px;
+        width: 75px;
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,17 @@
+.profile-page {
+  background-color: #f6f6f6;
+  padding: 120px 70px;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+
+    .activity{
+      width: 60vw;
+    }
+  }
+
+  .no-user {
+    text-align: center;
+  }
+}

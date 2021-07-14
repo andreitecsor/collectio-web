@@ -1,0 +1,25 @@
+.achievement-card {
+
+  p {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    height: 150px;
+  }
+
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #d3ecf8;;
+  }
+}

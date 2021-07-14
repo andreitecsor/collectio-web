@@ -3,22 +3,48 @@ import './sign-up.styles.scss';
 import React from 'react';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.components";
+import {auth} from "../../utils/firebase.utils";
+import swal from "sweetalert";
 
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            displayName: '',
             email: '',
             password: '',
             confirmPassword: ''
         }
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(this.state)
+        const {email, password, confirmPassword} = this.state;
+
+        if (password !== confirmPassword) {
+            swal({
+                title: "Passwords don't match",
+                icon: "warning",
+                button: "Try again",
+            });
+            return;
+        }
+
+        try {
+            await auth.createUserWithEmailAndPassword(email, password);
+            this.setState({
+                email: '',
+                password: '',
+                confirmPassword: ''
+            });
+        } catch (error) {
+            swal({
+                title: "Email already used",
+                icon: "error",
+                button: "Try again",
+            });
+            console.error(error);
+        }
     }
 
     handleChange = event => {
@@ -34,14 +60,6 @@ class SignUp extends React.Component {
                     <span className='switch-form' onClick={this.props.switchForm}>Log in now</span>
                 </span>
                 <form onSubmit={this.handleSubmit}>
-                    <FormInput
-                        type='text'
-                        name='displayName'
-                        value={this.state.displayName}
-                        onChange={this.handleChange}
-                        label="Display Name"
-                        required
-                    />
                     <FormInput
                         type='email'
                         name='email'
